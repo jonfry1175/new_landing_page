@@ -2,10 +2,10 @@ import { useState } from "react";
 import { logo, menu, close } from "../assets";
 import { navLinks } from "../constants";
 
-type ItemNavLinksProps = {
+type NavLinkProps = {
   isMobile?: boolean;
 };
-const ItemNavLinks: React.FC<ItemNavLinksProps> = ({ isMobile }) => (
+const NavLinks: React.FC<NavLinkProps> = ({ isMobile }) => (
   <ul
     className={`${
       isMobile ? "flex flex-col items-start" : "sm:flex hidden items-center"
@@ -33,22 +33,28 @@ const Navbar = () => {
     <nav className="w-full flex py-6 justify-between items-center">
       <img src={logo} alt="hoobank" className="w-[124px] h-[32px]" />
 
-      <ItemNavLinks />
+      <NavLinks />
 
-      <div className="sm:hidden flex flex-1 justify-end items-center">
-        <img
-          src={toggle ? close : menu}
-          alt="menu"
-          className="w-[28px] h-[28px] object-contain cursor-pointer"
+      {/* Mobile Menu */}
+      <div className="sm:hidden flex flex-1 justify-end items-center ">
+        <button
           onClick={() => setToggle(!toggle)}
-        />
+          aria-label={toggle ? "Close Menu" : "Open Menu"}
+          aria-expanded={toggle}
+        >
+          <img
+            src={toggle ? close : menu}
+            alt="menu"
+            className="w-[28px] h-[28px] object-contain"
+          />
+        </button>
 
         <div
           className={`${
             toggle ? "flex" : "hidden"
           } p-6 bg-black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[140px] rounded-xl sidebar`}
         >
-          <ItemNavLinks isMobile={true} />
+          <NavLinks isMobile={true} />
         </div>
       </div>
     </nav>
